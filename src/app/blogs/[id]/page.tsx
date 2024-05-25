@@ -6,6 +6,7 @@ import { useQuery } from "@/lib/handleAsync";
 import { BlogResponseWithAuthor } from "@/types";
 import { getInitials } from "@/utils/helperFunctions";
 import { Link } from "lucide-react";
+import Image from "next/image";
 import { redirect } from "next/navigation";
 
 async function SingleBlogPage({ params }: { params: { id: string } }) {
@@ -29,7 +30,7 @@ async function SingleBlogPage({ params }: { params: { id: string } }) {
       <div className="flex container flex-col items-center justify-center py-12 md:py-24 lg:py-32 ">
         <div className="mx-auto px-4 md:px-6 lg:px-8">
           <div className="relative h-[500px] md:h-[600px] lg:h-[700px] overflow-hidden rounded-2xl">
-            <img
+            <Image
               alt="Cover Image"
               className="h-full w-full object-cover object-center"
               height={1080}

@@ -3,6 +3,7 @@ import { getAllBlogs } from "@/lib/appQuery/queries";
 import { useQuery } from "@/lib/handleAsync";
 import { BlogResponseWithAuthor } from "@/types";
 import { formatDate, getInitials } from "@/utils/helperFunctions";
+import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
@@ -30,7 +31,7 @@ async function TrendingBlog() {
         <Link className="absolute inset-0 z-10" href={`/blogs/${blog._id}`}>
           <span className="sr-only">View post</span>
         </Link>
-        <img
+        <Image
           alt="Blog post image"
           className="w-full h-[400px] object-cover group-hover:opacity-50 transition-opacity"
           height={600}

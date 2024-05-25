@@ -3,6 +3,7 @@ import { formatDate, getInitials } from "@/utils/helperFunctions";
 import Link from "next/link";
 import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import Image from "next/image";
 
 function HorizontalBlog({ blog }: { blog: BlogResponseWithAuthor }) {
   const formattedDate = formatDate(blog.updatedAt);
@@ -12,7 +13,7 @@ function HorizontalBlog({ blog }: { blog: BlogResponseWithAuthor }) {
       href={`/blogs/${blog._id}`}
       className="flex items-center gap-4 md:gap-6 hover:opacity-75"
     >
-      <img
+      <Image
         alt="Blog post image"
         className="rounded-lg w-20 h-15 object-cover"
         height={75}
