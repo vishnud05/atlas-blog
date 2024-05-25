@@ -13,17 +13,17 @@ export async function useQuery<T>(
       error: null,
     };
   } catch (error: any) {
-    if (process.env.ENVIRONMENT === "prod") {
+    if (process.env.ENVIRONMENT === "dev") {
       return {
         status: "error",
-        message: "Error occurred",
+        message: error.message,
         data: null,
         error,
       };
     } else {
       return {
         status: "error",
-        message: error.message,
+        message: "An error occurred while fetching data",
         data: null,
         error,
       };
