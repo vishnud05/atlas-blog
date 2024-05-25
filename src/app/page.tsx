@@ -62,8 +62,8 @@ export default function Component() {
                   </h3>
                 </div>
                 <p className="text-sm text-gray-200 font-body dark:text-gray-400">
-                  ATLAS's intuitive editor makes it easy to create and format
-                  your blog posts.
+                  ATLAS&apos;s intuitive editor makes it easy to create and
+                  format your blog posts.
                 </p>
               </div>
               <div className="grid gap-1">
@@ -86,7 +86,7 @@ export default function Component() {
                   </h3>
                 </div>
                 <p className="text-sm text-gray-200 font-body dark:text-gray-400">
-                  Track your blog's performance with detailed analytics and
+                  Track your blog&apos;s performance with detailed analytics and
                   insights.
                 </p>
               </div>
@@ -158,9 +158,9 @@ export default function Component() {
                     </div>
                   </div>
                   <p className="text-sm text-gray-200 font-body dark:text-gray-400">
-                    "ATLAS has been a game-changer for my blog. The intuitive
-                    editor and customizable themes make it easy to create
-                    professional-looking content."
+                    &quot;ATLAS has been a game-changer for my blog. The
+                    intuitive editor and customizable themes make it easy to
+                    create professional-looking content.&quot;
                   </p>
                 </CardContent>
               </Card>
@@ -181,9 +181,9 @@ export default function Component() {
                     </div>
                   </div>
                   <p className="text-sm text-gray-200 font-body dark:text-gray-400">
-                    "I love the advanced analytics and monetization options
-                    ATLAS provides. It's helped me grow my blog and earn revenue
-                    from my content."
+                    &quot;I love the advanced analytics and monetization options
+                    ATLAS provides. It&apos;s helped me grow my blog and earn
+                    revenue from my content.&quot;
                   </p>
                 </CardContent>
               </Card>
@@ -204,9 +204,9 @@ export default function Component() {
                     </div>
                   </div>
                   <p className="text-sm text-gray-200 font-body dark:text-gray-400">
-                    "The collaborative tools in ATLAS have been invaluable for
-                    my team. We can easily manage our content and publish
-                    seamlessly."
+                    &quot;The collaborative tools in ATLAS have been invaluable
+                    for my team. We can easily manage our content and publish
+                    seamlessly.&quot;
                   </p>
                 </CardContent>
               </Card>
