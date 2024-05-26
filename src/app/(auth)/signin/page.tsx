@@ -19,7 +19,7 @@ import { signIn, useSession } from "next-auth/react";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 
-function page() {
+function SignInPage() {
   const { toast } = useToast();
   const router = useRouter();
   const { data, status } = useSession();
@@ -100,4 +100,4 @@ function page() {
   );
 }
 
-export default page;
+export default SignInPage;
