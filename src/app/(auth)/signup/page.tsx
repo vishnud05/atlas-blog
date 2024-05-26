@@ -29,7 +29,7 @@ import { useState } from "react";
 import { toast } from "@/components/ui/use-toast";
 import VerifyCodeForm from "@/components/VerifyCodeForm";
 
-export function SignUpForm() {
+function SignUpForm() {
   const form = useForm<z.infer<typeof signUpSchema>>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
