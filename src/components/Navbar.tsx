@@ -67,7 +67,7 @@ const Navbar = () => {
         </DropdownMenuTrigger>
         <DropdownMenuContent className="md:hidden">
           {links.map((link) => (
-            <DropdownMenuItem>
+            <DropdownMenuItem key={link.href}>
               <Link
                 className={`text-md text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50$`}
                 href={
