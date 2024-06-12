@@ -11,6 +11,7 @@ export const filterLinks = (role: string) => {
 };
 
 export const formatDate = (date: Date) => {
+  if (!date) return "Date";
   return new Date(date).toLocaleDateString("en-US", {
     day: "numeric",
     month: "short",
@@ -51,4 +52,29 @@ export function getInitials(fullName: string): string {
     .join("");
 
   return initials;
+}
+
+export function getShortDescription(text: string): string {
+  // Split the text into words using space as the delimiter
+  const words = text.split(" ");
+
+  // Check if the number of words is less than or equal to 15
+  if (words.length <= 15) {
+    return text; // Return the original text if it's 15 words or less
+  }
+
+  // Join the first 15 words and add "..." at the end
+  const first15Words = words.slice(0, 15).join(" ");
+
+  return `${first15Words}...`;
+}
+
+// utils/extractFirstParagraphText.ts
+
+// utils/extractFirstParagraphText.ts
+
+export function extractFirstParagraphText(htmlString: string): string {
+  const regex = /<p\b[^>]*>(.*?)<\/p>/i;
+  const match = regex.exec(htmlString);
+  return match ? match[1].replace(/&nbsp;/g, " ").replace(/&rsquo;/g, "'") : "";
 }

@@ -14,7 +14,7 @@ export const RolePriority: { [key: string]: number } = {
 
 export const PathnamePriority: { [key: string]: number } = {
   "/profile": 3,
-  "/dashboard": 2,
+  "/dashboard": 3,
   "/": 4,
   "/blogs": 4,
 };

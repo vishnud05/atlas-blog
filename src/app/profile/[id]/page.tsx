@@ -1,26 +1,40 @@
-import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar";
-import {
-  CollapsibleTrigger,
-  CollapsibleContent,
-  Collapsible,
-} from "@/components/ui/collapsible";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { getUser } from "@/lib/appQuery/queries";
 import { useQuery } from "@/lib/handleAsync";
 import { User } from "@/types";
 import { redirect } from "next/navigation";
-import { getInitials } from "@/utils/helperFunctions";
+import CustomAvatar from "@/components/CustomAvatar";
 
-export default async function Component({
+import { Card, CardContent } from "@/components/ui/card";
+
+const profilePanels = [
+  {
+    title: "Edit Profile",
+    description: "Update your personal information.",
+    icon: <FilePenIcon />,
+  },
+  {
+    title: "Change Password",
+    description: "Update your account password.",
+    icon: <LockIcon />,
+  },
+  {
+    title: "Notification Settings",
+    description: "Manage your notification preferences.",
+    icon: <BellIcon />,
+  },
+  {
+    title: "Delete Account",
+    description: "Permanently delete your account.",
+    icon: <Trash2Icon />,
+  },
+];
+
+export default async function ProfilePage({
   params,
 }: {
   params: { id: string };
 }) {
-  console.log("Params", params);
-
   const queryOpt = {
     id: params.id,
   };
@@ -29,106 +43,55 @@ export default async function Component({
     redirect("/error");
   }
   const user = response.data;
-
   return (
-    <div className="w-full h-screen mx-auto py-10 px-4 sm:px-6 lg:px-8 bg-[#fffaeb]">
-      <div className="h-full conatiner grid grid-cols-1 gap-8 md:grid-cols-2 ">
-        <div className=" rounded-lg shadow-md p-6 container">
-          <div className="flex items-center space-x-4">
-            <Avatar className="h-16 w-16">
-              <AvatarImage alt="avatar" src="/placeholder-avatar.jpg" />
-              <AvatarFallback>{getInitials(user.name)}</AvatarFallback>
-            </Avatar>
-            <div>
-              <h2 className="text-xl font-semibold">{user.name}</h2>
-              <p className="text-[#ffa500] dark:text-[#ffe4b5]">
-                {`@${user.username}`}
-              </p>
+    <div className="flex flex-col min-h-[100dvh] bg-background">
+      <header className=" px-6 py-4 flex items-center justify-between shadow-sm">
+        <div className="flex items-center gap-4">
+          <CustomAvatar alt="user-image" name={user.name} />
+          <div className="grid gap-0.5">
+            <div className="text-lg capitalize font-medium text-gray-900 dark:text-gray-50">
+              {user.name}
+            </div>
+            <div className="text-sm text-gray-500 dark:text-gray-400">
+              {user.email}
             </div>
           </div>
-          <p className="mt-4 text-[#ffa500] dark:text-[#ffe4b5]">{user.bio}</p>
         </div>
-        <div className="space-y-6">
-          <Collapsible>
-            <CollapsibleTrigger className="flex w-full items-center justify-between rounded-lg bg-[#fffaeb] px-6 py-4 text-left font-medium shadow-md transition-colors hover:bg-[#ffefd5] focus:outline-none focus-visible:ring focus-visible:ring-[#ffa500] dark:bg-[#ff8c00] dark:hover:bg-[#ffa500]">
-              <span>Personal Information</span>
-              <ChevronDownIcon className="h-5 w-5 transition-transform group-[data-state=open]:rotate-180" />
-            </CollapsibleTrigger>
-            <CollapsibleContent className="rounded-lg bg-[#fffaeb] p-6 shadow-md dark:bg-[#ff8c00]">
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <div className="space-y-2">
-                  <Label htmlFor="name">Name</Label>
-                  <Input defaultValue={user.name} id="name" />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
-                  <Input defaultValue={user.email} id="email" type="email" />
-                </div>
-              </div>
-            </CollapsibleContent>
-          </Collapsible>
-          <Collapsible>
-            <CollapsibleTrigger className="flex w-full items-center justify-between rounded-lg bg-[#fffaeb] px-6 py-4 text-left font-medium shadow-md transition-colors hover:bg-[#ffefd5] focus:outline-none focus-visible:ring focus-visible:ring-[#ffa500] dark:bg-[#ff8c00] dark:hover:bg-[#ffa500]">
-              <span>Password</span>
-              <ChevronDownIcon className="h-5 w-5 transition-transform group-[data-state=open]:rotate-180" />
-            </CollapsibleTrigger>
-            <CollapsibleContent className="rounded-lg bg-[#fffaeb] p-6 shadow-md dark:bg-[#ff8c00]">
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <div className="space-y-2">
-                  <Label htmlFor="current-password">Current Password</Label>
-                  <Input id="current-password" type="password" />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="new-password">New Password</Label>
-                  <Input id="new-password" type="password" />
-                </div>
-              </div>
-            </CollapsibleContent>
-          </Collapsible>
-          <Collapsible>
-            <CollapsibleTrigger className="flex w-full items-center justify-between rounded-lg bg-[#fffaeb] px-6 py-4 text-left font-medium shadow-md transition-colors hover:bg-[#ffefd5] focus:outline-none focus-visible:ring focus-visible:ring-[#ffa500] dark:bg-[#ff8c00] dark:hover:bg-[#ffa500]">
-              <span>Notifications</span>
-              <ChevronDownIcon className="h-5 w-5 transition-transform group-[data-state=open]:rotate-180" />
-            </CollapsibleTrigger>
-            <CollapsibleContent className="rounded-lg bg-[#fffaeb] p-6 shadow-md dark:bg-[#ff8c00]">
-              <div className="space-y-4">
-                <div className="flex items-center space-x-4">
-                  <Checkbox defaultChecked id="email-notifications" />
-                  <div>
-                    <Label htmlFor="email-notifications">
-                      Email Notifications
-                    </Label>
-                    <p className="text-[#ffa500] dark:text-[#ffe4b5]">
-                      Receive email notifications for important updates.
+        <Button variant="ghost" size="icon" className="rounded-full">
+          <SettingsIcon className="h-6 w-6 text-gray-500 dark:text-gray-400" />
+          <span className="sr-only">Open settings</span>
+        </Button>
+      </header>
+      <main className="flex-1 px-6 py-8">
+        <div className="grid gap-6 max-w-3xl mx-auto">
+          {profilePanels.map((panel, idx) => (
+            <Card
+              className="bg-background hover:opacity-80 transition-all"
+              key={idx}
+            >
+              <CardContent className="grid  gap-4">
+                <div className="flex mt-6 items-center justify-between">
+                  <div className="grid gap-1">
+                    <div className="text-lg font-medium ">{panel.title}</div>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                      {panel.description}
                     </p>
                   </div>
+                  <Button variant="ghost" size="icon" className="rounded-full">
+                    {panel.icon}
+                    <span className="sr-only">{panel.title}</span>
+                  </Button>
                 </div>
-                <div className="flex items-center space-x-4">
-                  <Checkbox id="push-notifications" />
-                  <div>
-                    <Label htmlFor="push-notifications">
-                      Push Notifications
-                    </Label>
-                    <p className="text-[#ffa500] dark:text-[#ffe4b5]">
-                      Receive push notifications for real-time updates.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </CollapsibleContent>
-          </Collapsible>
-          <div className="flex justify-end">
-            <Button className="bg-[#ffa500] text-[#fffaeb] hover:bg-[#ff8c00] dark:bg-[#ffe4b5] dark:text-[#ff8c00] dark:hover:bg-[#ffa500]">
-              Save Changes
-            </Button>
-          </div>
+              </CardContent>
+            </Card>
+          ))}
         </div>
-      </div>
+      </main>
     </div>
   );
 }
 
-function ChevronDownIcon(props: any) {
+function BellIcon(props: any) {
   return (
     <svg
       {...props}
@@ -142,7 +105,92 @@ function ChevronDownIcon(props: any) {
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      <path d="m6 9 6 6 6-6" />
+      <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+      <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+    </svg>
+  );
+}
+
+function FilePenIcon(props: any) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M12 22h6a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v10" />
+      <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+      <path d="M10.4 12.6a2 2 0 1 1 3 3L8 21l-4 1 1-4Z" />
+    </svg>
+  );
+}
+
+function LockIcon(props: any) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+      <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+    </svg>
+  );
+}
+
+function SettingsIcon(props: any) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
+      <circle cx="12" cy="12" r="3" />
+    </svg>
+  );
+}
+
+function Trash2Icon(props: any) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M3 6h18" />
+      <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+      <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+      <line x1="10" x2="10" y1="11" y2="17" />
+      <line x1="14" x2="14" y1="11" y2="17" />
     </svg>
   );
 }

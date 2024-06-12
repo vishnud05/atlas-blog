@@ -3,7 +3,7 @@ import React from "react";
 const Footer = () => {
   return (
     <footer className="bg-transparent py-2">
-      <div className="container mx-auto px-4 text-center">
+      <div className=" mx-auto  text-center">
         <p className="text-gray-600">
           &copy; 2024 Atlas Blog. All rights reserved.
         </p>

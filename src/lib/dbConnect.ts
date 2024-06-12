@@ -11,7 +11,6 @@ const connectionObject: ConnectionOptions = {};
 const dbConnect = async () => {
   UserModel;
   BlogModel;
-  console.log(mongoose.models);
 
   try {
     if (connectionObject.isConnected) {

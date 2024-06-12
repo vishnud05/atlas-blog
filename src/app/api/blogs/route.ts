@@ -32,26 +32,35 @@ export async function POST(req: Request) {
     } = supabase.storage.from("cover-images").getPublicUrl(data.path);
 
     const blogData = Object.fromEntries(formData);
+    const tags = (formData.get("tags") as string).split(" ");
     blogData.cover_image = publicUrl;
 
-    const newBlog = await BlogModel.create(blogData);
+    console.log(blogData);
+
+    const newBlog = await BlogModel.create({ ...blogData, tags });
     console.log(newBlog);
 
     if (!newBlog) {
       throw new Error("Error creating blog");
     }
 
-    return Response.json({
-      status: "success",
-      message: "Blog created successfully",
-      data: newBlog,
-    });
+    return Response.json(
+      {
+        status: "success",
+        message: "Blog created successfully",
+        data: newBlog,
+      },
+      { status: 201 }
+    );
   } catch (error: any) {
-    return Response.json({
-      status: "error",
-      message: error.message,
-      data: error,
-    });
+    return Response.json(
+      {
+        status: "error",
+        message: error.message,
+        data: error,
+      },
+      { status: 500 }
+    );
   }
 }
 

@@ -82,12 +82,16 @@ function SignUpForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col gap-6 w-2/5  mx-auto p-4 bg-white rounded-lg shadow-lg dark:bg-gray-800 dark:text-white"
+        className="flex flex-col gap-6 w-full max-w-[40rem] mx-auto p-4  rounded-lg shadow-lg "
       >
-        <div>
-          <h1 className="text-center text-4xl font-bold">Sign Up</h1>
-          <p className="text-center mb-8">Create an account to get started.</p>
-          <p className="text-center mb-8">
+        <div className="flex flex-col gap-4">
+          <h1 className="text-center text-4xl font-semibold mb-4">
+            Start Your Journey With This Amazing Platform
+          </h1>
+          <p className="text-center text-xl ">
+            Create an account to get started
+          </p>
+          <p className="text-center mb-8 text-lg">
             Already have an account ?{" "}
             <a href="/signin" className="underline">
               Sign In

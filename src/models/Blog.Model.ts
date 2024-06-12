@@ -43,6 +43,14 @@ const BlogSchema: Schema<Blog> = new Schema(
       ],
       default: [],
     },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
+    updatedAt: {
+      type: Date,
+      default: Date.now,
+    },
   },
   { toJSON: { virtuals: true }, toObject: { virtuals: true }, timestamps: true }
 );

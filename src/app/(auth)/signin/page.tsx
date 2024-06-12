@@ -18,6 +18,7 @@ import { signInSchema } from "@/schemas/signInSchema";
 import { signIn, useSession } from "next-auth/react";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 function SignInPage() {
   const { toast } = useToast();
@@ -58,10 +59,10 @@ function SignInPage() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col gap-6 w-2/5  mx-auto mt-10 p-4 bg-white rounded-lg shadow-lg dark:bg-gray-800 dark:text-white"
+        className="flex flex-col gap-6 w-full max-w-[40rem]  mx-auto mt-10 p-4 rounded-lg shadow-lg "
       >
-        <h1 className="text-center text-4xl font-bold">Sign In</h1>
-        <p className="text-center mb-8">
+        <h1 className="text-center text-3xl font-semibold">Sign In</h1>
+        <p className="text-center text-lg mb-8">
           Sign in to access all the cool features.
         </p>
         <FormField
@@ -95,6 +96,12 @@ function SignInPage() {
         <Button type="submit" disabled={status === "loading"}>
           Submit
         </Button>
+        <p className="text-center">
+          Not registered ?{" "}
+          <Link href="/signup" className="underline">
+            Signup
+          </Link>
+        </p>
       </form>
     </Form>
   );

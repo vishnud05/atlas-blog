@@ -9,13 +9,17 @@ export default class APIFeatures {
   }
 
   filter() {
-    if (this.queryString.filter) {
-      const queryObj = JSON.stringify(this.queryString.filter).replace(
-        /\b(gte|gt|lte|lt)\b/g,
-        (match) => `$${match}`
-      );
-      this.query = this.query.find(JSON.parse(queryObj));
-    }
+    const queryObj = { ...this.queryString };
+
+    const properties = ["sort", "page", "limit", "fields", "populate"];
+    properties.forEach((field) => delete queryObj[field]);
+
+    const queryObjStr = JSON.stringify(queryObj).replace(
+      /\b(gte|gt|lte|lt)\b/g,
+      (match) => `$${match}`
+    );
+    this.query.find(JSON.parse(queryObjStr));
+
     return this;
   }
 
